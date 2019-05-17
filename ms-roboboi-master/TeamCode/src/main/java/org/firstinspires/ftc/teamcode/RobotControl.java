@@ -52,7 +52,7 @@ import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
 @Disabled
-public class BasicOpMode_Iterative extends OpMode
+public class RobotControl extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -79,7 +79,7 @@ public class BasicOpMode_Iterative extends OpMode
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
-        telemetry.addData("Coder", "Beckett")
+        telemetry.addData("Coder", "Beckett");
     }
 
     /*
