@@ -80,8 +80,8 @@ public class RobotControl extends OpMode
         // Reverse the motor that runs backwards when connected directly to the battery
         leftDrive.setDirection(DcMotor.Direction.REVERSE);
         rightDrive.setDirection(DcMotor.Direction.FORWARD);
-        raiseLeft.setDirection(DcMotor.Direction.FORWARD);
-        raiseRight.setDirection(DcMotor.Direction.REVERSE);
+        raiseLeft.setDirection(DcMotor.Direction.REVERSE);
+        raiseRight.setDirection(DcMotor.Direction.FORWARD);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -123,11 +123,11 @@ public class RobotControl extends OpMode
         rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
 
         if (gamepad1.right_bumper) {
-            raiseRight.setPower(0.1);
-            raiseLeft.setPower(0.1);
+            raiseRight.setPower(0.2);
+            raiseLeft.setPower(0.2);
         } else if (gamepad1.left_bumper) {
-            raiseRight.setPower(-0.1);
-            raiseLeft.setPower(-0.1);
+            raiseRight.setPower(-0.2);
+            raiseLeft.setPower(-0.2);
         } else {
             raiseLeft.setPower(0);
             raiseRight.setPower(0);
