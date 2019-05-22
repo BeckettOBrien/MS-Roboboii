@@ -119,15 +119,15 @@ public class RobotControl extends OpMode
         // - This uses basic math to combine motions and is easier to drive straight.
         double drive = -gamepad1.left_stick_y;
         double turn  =  gamepad1.right_stick_x;
-        leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-        rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+        leftPower    = Range.clip(drive + turn, -0.8, 0.8) ;
+        rightPower   = Range.clip(drive - turn, -0.8, 0.8) ;
 
         if (gamepad1.right_bumper) {
             raiseRight.setPower(0.2);
             raiseLeft.setPower(0.2);
         } else if (gamepad1.left_bumper) {
-            raiseRight.setPower(-0.2);
-            raiseLeft.setPower(-0.2);
+            raiseRight.setPower(-0.1);
+            raiseLeft.setPower(-0.1);
         } else {
             raiseLeft.setPower(0);
             raiseRight.setPower(0);
