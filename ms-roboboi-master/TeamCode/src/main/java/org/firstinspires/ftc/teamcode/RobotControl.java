@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -57,6 +58,8 @@ public class RobotControl extends OpMode
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
+    private DcMotor raiseRight = null;
+    private DcMotor raiseLeft = null;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -70,11 +73,15 @@ public class RobotControl extends OpMode
         // step (using the FTC Robot Controller app on the phone).
         leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+        raiseLeft = hardwareMap.get(DcMotor.class, "raise_left");
+        raiseRight = hardwareMap.get(DcMotor.class, "raise_right");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         leftDrive.setDirection(DcMotor.Direction.REVERSE);
         rightDrive.setDirection(DcMotor.Direction.FORWARD);
+        raiseLeft.setDirection(DcMotor.Direction.FORWARD);
+        raiseRight.setDirection(DcMotor.Direction.REVERSE);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -114,6 +121,17 @@ public class RobotControl extends OpMode
         double turn  =  gamepad1.right_stick_x;
         leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
         rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+
+        if (gamepad1.right_bumper) {
+            raiseRight.setPower(0.1);
+            raiseLeft.setPower(0.1);
+        } else if (gamepad1.left_bumper) {
+            raiseRight.setPower(-0.1);
+            raiseLeft.setPower(-0.1);
+        } else {
+            raiseLeft.setPower(0);
+            raiseRight.setPower(0);
+        }
 
         // Tank Mode uses one stick to control each wheel.
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
