@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -61,6 +62,8 @@ public class RobotControl extends OpMode
     private DcMotor raiseRight = null;
     private DcMotor raiseLeft = null;
 
+    private Servo handServo = null;
+
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -75,6 +78,8 @@ public class RobotControl extends OpMode
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
         raiseLeft = hardwareMap.get(DcMotor.class, "raise_left");
         raiseRight = hardwareMap.get(DcMotor.class, "raise_right");
+
+        handServo = hardwareMap.get(Servo.class, "hand_servo");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -131,6 +136,12 @@ public class RobotControl extends OpMode
         } else {
             raiseLeft.setPower(0);
             raiseRight.setPower(0);
+        }
+
+        if (gamepad1.a) {
+            handServo.setPosition(1);
+        } else if (gamepad1.b) {
+            handServo.setPosition(0);
         }
 
         // Tank Mode uses one stick to control each wheel.
